@@ -1,8 +1,9 @@
 import Container from '@/components/Container';
+import GeoLog from '@/components/GeoLog';
 export default function Home() {
   return (
     <Container>
-      <div>hi~!!</div>
+      <GeoLog />
     </Container>
   );
 }
