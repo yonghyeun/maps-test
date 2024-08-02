@@ -1,7 +1,7 @@
 import './globals.css';
 
 import ReactQueryProvider from '@/components/ReactQueryProvider';
-
+import StyledComponentRegistry from '@/lib/registry';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,7 +10,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <StyledComponentRegistry>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </StyledComponentRegistry>
       </body>
     </html>
   );
