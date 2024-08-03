@@ -51,6 +51,14 @@ const GeoLog = () => {
               cnt: cnt.current,
             },
           ];
+          /* 매우 안좋은 패턴인걸 알지만 실험을 위해 해당 콜백 메소드 내부에서 fetch 요청을 보내기로 함 */
+          fetch('/api/geo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCoords),
+          });
 
           return newCoords.toSorted((prev, next) => prev.idx - next.idx);
         });
