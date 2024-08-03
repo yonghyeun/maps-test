@@ -66,14 +66,22 @@ const GeoLog = () => {
     <StyledLog>
       <h1>GeoLog</h1>
       <ul>
-        {geoInfo.map(({ lat, lon, time, idx }) => (
-          <li key={idx}>
+        {geoInfo.map(({ lat, lon, time, idx, cnt }) => (
+          <li
+            key={idx}
+            style={{
+              margin: '10px',
+              padding: '10px',
+              border: '1px solid white',
+            }}
+          >
             <p>
               lat : {lat} lon : {lon}
             </p>
             <p>
               time : {time} idx : {idx}
             </p>
+            <p>cnt : {cnt}</p>
           </li>
         ))}
       </ul>
