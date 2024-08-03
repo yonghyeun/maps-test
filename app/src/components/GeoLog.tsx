@@ -6,8 +6,8 @@ import styled from 'styled-components';
 export const StyledLog = styled.section({
   padding: '1rem',
   border: '1px solid white',
-  minWidth: '200px',
-  minHeight: '200px',
+  minWidth: '400px',
+  minHeight: '400px',
   maxHeight: '500px',
   overflowY: 'scroll',
 });
@@ -16,13 +16,13 @@ type Geo = {
   lat: number;
   lon: number;
   time: string;
+  idx: number; // 실행 순서를 보장하기 위한 new Date.getTime() 값
   cnt: number;
 };
 
 const GeoLog = () => {
   const [geoInfo, setGeoInfo] = useState<Geo[]>([]);
   const cnt = useRef<number>(0);
-  console.log(geoInfo);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -36,17 +36,24 @@ const GeoLog = () => {
         timeZone: 'Asia/Seoul',
       });
 
+      const idx = new Date().getTime();
+
       window.navigator.geolocation.getCurrentPosition((position) => {
         const coord = position.coords;
-        setGeoInfo((prev) => [
-          ...prev,
-          {
-            lat: coord.latitude,
-            lon: coord.longitude,
-            time,
-            cnt: cnt.current,
-          },
-        ]);
+        setGeoInfo((prev) => {
+          const newCoords = [
+            ...prev,
+            {
+              lat: coord.latitude,
+              lon: coord.longitude,
+              idx,
+              time,
+              cnt: cnt.current,
+            },
+          ];
+
+          return newCoords.toSorted((prev, next) => next.idx - prev.idx);
+        });
       });
     }, 1000);
 
@@ -59,9 +66,14 @@ const GeoLog = () => {
     <StyledLog>
       <h1>GeoLog</h1>
       <ul>
-        {geoInfo.map(({ lat, lon, time, cnt }, idx) => (
+        {geoInfo.map(({ lat, lon, time, cnt, idx }) => (
           <li key={idx}>
-            lat : {lat} lon : {lon} time : {time} cnt : {cnt}
+            <p>
+              lat : {lat} lon : {lon}
+            </p>
+            <p>
+              time : {time} idx : {idx}
+            </p>
           </li>
         ))}
       </ul>
