@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export const StyledLog = styled.section({
   padding: '1rem',
   border: '1px solid white',
-  minWidth: '400px',
+  minWidth: '200px',
   minHeight: '400px',
   maxHeight: '500px',
   overflowY: 'scroll',
@@ -95,7 +95,17 @@ const GeoLog = () => {
           ))}
         </ul>
       </StyledLog>
-      <div>[{geoInfo.map((geo) => JSON.stringify(geo)).toString()}]</div>
+      <div
+        style={{
+          width: '200px',
+          border: '1px solid white',
+          overflow: 'scroll',
+        }}
+      >
+        {geoInfo.map((geo) => {
+          return <p key={geo.idx}>{JSON.stringify(geo)}</p>;
+        })}
+      </div>
     </section>
   );
 };
