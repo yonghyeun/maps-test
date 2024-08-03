@@ -52,7 +52,7 @@ const GeoLog = () => {
             },
           ];
 
-          return newCoords.toSorted((prev, next) => next.idx - prev.idx);
+          return newCoords.toSorted((prev, next) => prev.idx - next.idx);
         });
       });
     }, 1000);
@@ -66,7 +66,7 @@ const GeoLog = () => {
     <StyledLog>
       <h1>GeoLog</h1>
       <ul>
-        {geoInfo.map(({ lat, lon, time, cnt, idx }) => (
+        {geoInfo.map(({ lat, lon, time, idx }) => (
           <li key={idx}>
             <p>
               lat : {lat} lon : {lon}
