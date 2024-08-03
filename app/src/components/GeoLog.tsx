@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export const StyledLog = styled.section({
   padding: '1rem',
   border: '1px solid white',
-  minWidth: '200px',
+  minWidth: '400px',
   minHeight: '400px',
   maxHeight: '500px',
   overflowY: 'scroll',
@@ -95,16 +95,20 @@ const GeoLog = () => {
           ))}
         </ul>
       </StyledLog>
-      <div
-        style={{
-          width: '200px',
-          border: '1px solid white',
-          overflow: 'scroll',
-        }}
-      >
-        {geoInfo.map((geo) => {
-          return <p key={geo.idx}>{JSON.stringify(geo)}</p>;
-        })}
+      <div>
+        <button
+          onClick={() => {
+            const json = JSON.stringify(geoInfo);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'geoInfo.json';
+            a.click();
+          }}
+        >
+          Save JSON
+        </button>
       </div>
     </section>
   );
